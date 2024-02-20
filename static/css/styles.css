@@ -24,3 +24,10 @@ body {
         padding-top: 20px;
     }
     
+    .btn-group-bottom {
+        position: relative;
+        top: 10px;
+        bottom: 60px;
+        padding-top: 10px; 
+    }
+    
