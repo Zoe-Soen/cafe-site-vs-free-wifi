@@ -1,0 +1,72 @@
+{% extends 'bootstrap/base.html' %}
+
+<!-- 在使用 Flask-Bootstrap 后需要重写部分 css style 时，
+  可以通过 {{super()}} 来继承后，下方添加自定义的 css 文件 -->
+{% block styles %}
+  {{super()}}
+  <link rel="stylesheet"
+        href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block title %}Restaurants{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+
+      <h1>All Cafes</h1>
+
+	  <table class="table">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th> 
+                <th scope="col">Name</th>
+                <th scope="col">Map Link</th>
+                <th scope="col">Image Link</th>
+                <th scope="col">Loc</th>
+                <th scope="col">Sockets</th>
+                <th scope="col">Toilet</th>
+                <th scope="col">Wifi</th>
+                <th scope="col">Calls</th>
+                <th scope="col">Seats</th>
+                <th scope="col">Coffee Price</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Report Closed</th>
+              </tr>
+            </thead>
+            {% for cafe in all_cafes %}
+            <tbody>
+              <tr>
+                <th scope="row"> {{ cafe["id"]}} </th>
+                <td> {{ cafe["name"]}} </td>
+                <td> <a href="{{ cafe['map_url'] }}">Maps Link</a></td>
+                <td> <a href="{{ cafe['img_url'] }}">Image Link</a></td>
+                <td> {{ cafe["location"]}} </td>
+                <td> {{ cafe["has_sockets"]}} </td>
+                <td> {{ cafe["has_toilet"]}} </td>
+                <td> {{ cafe["has_wifi"]}} </td>
+                <td> {{ cafe["can_take_calls"]}} </td>
+                <td> {{ cafe["seats"]}} </td>
+                <td> {{ cafe["coffee_price"]}} </td>
+                <td> <a class="btn btn-warning" href="{{ url_for('update_cafe', cafe_id=cafe['id']) }}" role="button">Update</a> </td>
+                <td> <a class="btn btn-danger" href="{{ url_for('delete_cafe', cafe_id=cafe['id']) }}" role="button">Report Closed</a> </td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+  	  </table>
+
+    </div>
+  </div>
+
+  <div class="d-grid gap-2 d-md-flwx justify-content-md-end">
+    <a calss="btn btn-primary btn-lg" href="{{ url_for('home')}}" role="button">Home  |</a> 
+    <a calss="btn btn-success btn-lg" href="{{ url_for('add_cafe') }}" role="button">   Add New Cafe  |</a>
+  </div>
+
+</div>
+
+{% endblock %}

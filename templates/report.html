@@ -1,0 +1,41 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf%}
+
+{% block styles %}
+  {{super()}}
+  <link rel="stylesheet"
+        href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block title %}Rport A Existing Cafe Closed{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+
+      <h1>Report Closed</h1>
+      <p class="space-above">If you found this cafe is closed</p>
+      <p class="space-above">Please leave a message with the reason to our site admin. Thank you!</p>
+      
+      <!-- This is where your WTForm will go -->
+      <form method="POST" action="">
+        {{ wtf.quick_form(report_form, novalidate=true) }}
+      </form>
+      
+      <p class="space-above">If you have the "TopSecretAPIKey", type in here to proceed.</p>
+      
+      <!-- This is where your WTForm will go -->
+      <form method="POST" action="">
+        {{ del_form.csrf_token }}
+        {{ wtf.quick_form(del_form, novalidate=true) }}
+      </form>
+      
+	  <p class="space-above"><a href="{{ url_for('get_all_cafes') }}">See all cafes</a></p>
+    
+    </div>
+  </div>
+  
+</div>
+
+{% endblock %}
