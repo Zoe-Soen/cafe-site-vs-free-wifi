@@ -1,14 +1,14 @@
 {% extends 'bootstrap/base.html' %}
 
-<!-- 在使用 Flask-Bootstrap 后需要重写部分 css style 时，
-  可以通过 {{super()}} 来继承后，下方添加自定义的 css 文件 -->
+<!--  After using Flask-Bootstrap, when it's necessary to rewrite certain CSS styles,
+you can inherit by using {{super()}}, and then add custom CSS files below. -->
 {% block styles %}
   {{super()}}
   <link rel="stylesheet"
         href="{{url_for('.static', filename='css/styles.css')}}">
 {% endblock %}
 
-{% block title %}Restaurants{% endblock %}
+{% block title %}All Cafes{% endblock %}
 
 {% block content %}
 
@@ -51,8 +51,10 @@
                 <td> {{ cafe["can_take_calls"]}} </td>
                 <td> {{ cafe["seats"]}} </td>
                 <td> {{ cafe["coffee_price"]}} </td>
-                <td> <a class="btn btn-warning" href="{{ url_for('update_cafe', cafe_id=cafe['id']) }}" role="button">Update</a> </td>
-                <td> <a class="btn btn-danger" href="{{ url_for('delete_cafe', cafe_id=cafe['id']) }}" role="button">Report Closed</a> </td>
+                <td> <a href="{{ url_for('update_cafe', cafe_id=cafe['id']) }}" >Update</a> </td>
+                <td> <a href="{{ url_for('delete_cafe', cafe_id=cafe['id']) }}" >Report Closed</a> </td>
+                <!-- <td> <a class="btn btn-warning" href="{{ url_for('update_cafe', cafe_id=cafe['id']) }}" role="button">Update</a> </td>
+                <td> <a class="btn btn-danger" href="{{ url_for('delete_cafe', cafe_id=cafe['id']) }}" role="button">Report Closed</a> </td> -->
               </tr>
             </tbody>
             {% endfor %}
@@ -62,11 +64,12 @@
     </div>
   </div>
 
-  <div class="d-grid gap-2 d-md-flwx justify-content-md-end">
-    <a calss="btn btn-primary btn-lg" href="{{ url_for('home')}}" role="button">Home  |</a> 
-    <a calss="btn btn-success btn-lg" href="{{ url_for('add_cafe') }}" role="button">   Add New Cafe  |</a>
+  <div class="btn-group-bottom">
+    <a href="{{ url_for('home')}}" class="btn btn-primary" role="button">Home</a> 
+    <a href="{{ url_for('add_cafe') }}" class="btn btn-success"  role="button">Add New Cafe</a>
   </div>
 
 </div>
+
 
 {% endblock %}
