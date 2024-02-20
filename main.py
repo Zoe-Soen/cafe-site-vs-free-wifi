@@ -1,4 +1,3 @@
-"""# Sample: https://laptopfriendly.co/london"""
 import random
 import smtplib
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
@@ -242,7 +241,7 @@ def delete_cafe(cafe_id):
     report_form = ReportClosed()
 
     api_key = request.form.get('api_key')
-    if api_key == "TopSecretAPIKey":
+    if api_key == app.config['API_KEY']:
         with app.app_context():
             cafe = Cafe.query.get_or_404(cafe_id)
             db.session.delete(cafe)
@@ -261,6 +260,7 @@ def delete_cafe(cafe_id):
         return redirect(url_for('get_all_cafes'))
 
     return render_template("report.html", del_form=del_form, report_form=report_form)
+
 
 def send_email(sender, message):
     """Send a report-closed mail to site admin """
